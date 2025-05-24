@@ -1,0 +1,139 @@
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local CloseButton = Instance.new("TextButton")
+local InputBox = Instance.new("TextBox")
+local SpawnButton = Instance.new("TextButton")
+local AllFruitsButton = Instance.new("TextButton")
+local AllSpawnedPopup = Instance.new("TextLabel")
+local UIS = game:GetService("UserInputService")
+
+-- Parent to player
+ScreenGui.Name = "BloxFruitsSpawnerGUI"
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- Fake Badge Style Popup
+local BadgeStylePopup = Instance.new("TextLabel")
+BadgeStylePopup.Name = "FakeBadgeAward"
+BadgeStylePopup.Parent = ScreenGui
+BadgeStylePopup.Size = UDim2.new(0, 320, 0, 48)
+BadgeStylePopup.Position = UDim2.new(0.5, -160, 0, -60)
+BadgeStylePopup.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+BadgeStylePopup.TextColor3 = Color3.fromRGB(255, 255, 255)
+BadgeStylePopup.Font = Enum.Font.GothamBold
+BadgeStylePopup.TextSize = 20
+BadgeStylePopup.Text = "Thanks For Purchasing!!"
+BadgeStylePopup.TextStrokeTransparency = 0.6
+BadgeStylePopup.BorderSizePixel = 0
+BadgeStylePopup.AnchorPoint = Vector2.new(0.5, 0)
+BadgeStylePopup.Visible = true
+BadgeStylePopup.ZIndex = 10
+
+BadgeStylePopup:TweenPosition(UDim2.new(0.5, -160, 0, 36), "Out", "Quad", 0.6, true)
+task.delay(4, function()
+	BadgeStylePopup:TweenPosition(UDim2.new(0.5, -160, 0, -60), "In", "Quad", 0.5, true)
+	task.delay(0.5, function()
+		BadgeStylePopup.Visible = false
+	end)
+end)
+
+-- Main Frame
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+MainFrame.Size = UDim2.new(0, 300, 0, 220)
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -110)
+MainFrame.Active = true
+MainFrame.Draggable = true
+
+-- Title
+Title.Name = "Title"
+Title.Parent = MainFrame
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+Title.Text = "🌈 Blox Fruits Gui (Premium)"
+Title.TextColor3 = Color3.new(1, 1, 1)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 16
+
+-- Rainbow effect
+task.spawn(function()
+	while true do
+		for hue = 0, 1, 0.01 do
+			Title.TextColor3 = Color3.fromHSV(hue, 1, 1)
+			task.wait(0.05)
+		end
+	end
+end)
+
+-- Close Button
+CloseButton.Name = "CloseButton"
+CloseButton.Parent = MainFrame
+CloseButton.Text = "X"
+CloseButton.Size = UDim2.new(0, 30, 0, 30)
+CloseButton.Position = UDim2.new(1, -35, 0, 5)
+CloseButton.BackgroundColor3 = Color3.fromRGB(200, 60, 60)
+CloseButton.TextColor3 = Color3.new(1, 1, 1)
+CloseButton.Font = Enum.Font.GothamBold
+CloseButton.TextSize = 16
+CloseButton.MouseButton1Click:Connect(function()
+	ScreenGui:Destroy()
+end)
+
+-- Input Box
+InputBox.Parent = MainFrame
+InputBox.PlaceholderText = "Type Perm Fruit"
+InputBox.Size = UDim2.new(0.9, 0, 0, 30)
+InputBox.Position = UDim2.new(0.05, 0, 0, 60)
+InputBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+InputBox.TextColor3 = Color3.new(1, 1, 1)
+InputBox.Font = Enum.Font.Gotham
+InputBox.TextSize = 14
+
+-- Spawn Button
+SpawnButton.Parent = MainFrame
+SpawnButton.Text = "Spawn Fruit"
+SpawnButton.Size = UDim2.new(0.9, 0, 0, 30)
+SpawnButton.Position = UDim2.new(0.05, 0, 0, 100)
+SpawnButton.BackgroundColor3 = Color3.fromRGB(60, 120, 200)
+SpawnButton.TextColor3 = Color3.new(1, 1, 1)
+SpawnButton.Font = Enum.Font.GothamBold
+SpawnButton.TextSize = 14
+SpawnButton.MouseButton1Click:Connect(function()
+	local fruit = InputBox.Text
+	if fruit ~= "" then
+		-- Your fruit spawning logic here
+		print("Spawned: " .. fruit)
+	end
+end)
+
+-- Get All Perm Fruits Button
+AllFruitsButton.Parent = MainFrame
+AllFruitsButton.Text = "Get All Perm Fruits"
+AllFruitsButton.Size = UDim2.new(0.9, 0, 0, 30)
+AllFruitsButton.Position = UDim2.new(0.05, 0, 0, 140)
+AllFruitsButton.BackgroundColor3 = Color3.fromRGB(100, 180, 80)
+AllFruitsButton.TextColor3 = Color3.new(1, 1, 1)
+AllFruitsButton.Font = Enum.Font.GothamBold
+AllFruitsButton.TextSize = 14
+AllFruitsButton.MouseButton1Click:Connect(function()
+	-- Logic to spawn all fruits
+	print("All Fruits Spawned")
+	AllSpawnedPopup.Visible = true
+	task.delay(2, function()
+		AllSpawnedPopup.Visible = false
+	end)
+end)
+
+-- All Spawned Popup
+AllSpawnedPopup.Parent = MainFrame
+AllSpawnedPopup.Text = "All Spawned!"
+AllSpawnedPopup.Size = UDim2.new(1, 0, 0, 30)
+AllSpawnedPopup.Position = UDim2.new(0, 0, 1, -35)
+AllSpawnedPopup.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+AllSpawnedPopup.TextColor3 = Color3.new(1, 1, 1)
+AllSpawnedPopup.Font = Enum.Font.GothamBold
+AllSpawnedPopup.TextSize = 14
+AllSpawnedPopup.BorderSizePixel = 0
+AllSpawnedPopup.Visible = false
